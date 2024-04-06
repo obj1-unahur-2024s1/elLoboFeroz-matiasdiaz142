@@ -26,16 +26,18 @@ object loboFeroz{
 	method correrHacia(unLugar){
 		self.disminuirPeso(2)
 	}
+	
+	method soplarUna_(unaCasa){
+		self.disminuirPeso(unaCasa.resistencia() + unaCasa.pesoOcupantes())
+	}
 }
 
 object caperucita{
-	var canasta = 6
-	var peso = 60 + manzana.peso()*canasta
-	method peso(){return peso}
+	const canasta = canastaDeManzanas
+	const peso = 60
+	method peso(){return peso + canasta.peso()}
 	method canasta(){return canasta}
 	method correrHacia(unLugar){}
-	method aumentarManzanas(cant) {peso = peso + manzana.peso()}
-	method disminuirManzanas(cant) {peso = peso - manzana.peso()}
 }
 
 object abuela{
@@ -47,6 +49,12 @@ object cazador{
 	const peso = 60
 	method peso(){return peso}
 }
+
+object chanchito{
+	var peso = 20
+	method peso(){return peso}
+}
+
 //Comidas
 
 object hamburguesa{
@@ -59,7 +67,37 @@ object manzana{
 	method peso(){return peso}
 }
 
+object canastaDeManzanas{
+	var peso = 6*manzana.peso()
+	method peso(){return peso}
+	method aumentarManzanas(cant) {peso = peso + manzana.peso()*cant}
+	method disminuirManzanas(cant) {peso = peso - manzana.peso()*cant}
+}
+
 //Lugares
 
 object bosque{}
+
 object casaAbuela{}
+
+object casaPaja{
+	const resistencia = 0
+	const ocupantes = 3
+	method resistencia(){return resistencia}
+	method pesoOcupantes(){return ocupantes*chanchito.peso()}
+}
+
+object casaMadera{
+	const resistencia = 5
+	const ocupantes = 2
+	method resistencia(){return resistencia}
+	method pesoOcupantes(){return ocupantes*chanchito.peso()}
+}
+
+object casaLadrillo{
+	const ladrillos = 10
+	const resistencia = 2*ladrillos
+	const ocupantes = 1
+	method resistencia(){return resistencia}
+	method pesoOcupantes(){return ocupantes*chanchito.peso()}
+}
